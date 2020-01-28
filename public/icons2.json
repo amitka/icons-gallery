@@ -1,0 +1,12 @@
+[
+  {
+    "key": "\\Cloudinfra\\SVG\\Device Mobile.svg",
+    "name": "Device Mobile",
+    "svg": "<svg id=\"Layer_1\" data-name=\"Layer 1\" xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"32\" viewBox=\"0 0 32 32\"><defs><style>.cls-1,.cls-2{fill:#2e3f58;}.cls-1{fill-rule:evenodd;}</style></defs><title>icons</title><g id=\"Group_4706\" data-name=\"Group 4706\"><g id=\"Group_4687\" data-name=\"Group 4687\"><path id=\"Path_2008\" data-name=\"Path 2008\" class=\"cls-1\" d=\"M23,0H9A2,2,0,0,0,7,2V30a2,2,0,0,0,2,2H23a2,2,0,0,0,2-2V2A2,2,0,0,0,23,0Zm0,29a1,1,0,0,1-1,1H10a1,1,0,0,1-1-1V3a1,1,0,0,1,1-1H22a1,1,0,0,1,1,1Z\"/><path id=\"Path_2009\" data-name=\"Path 2009\" class=\"cls-1\" d=\"M12,2a1,1,0,0,1,1,1,1,1,0,0,0,1,1h4a1,1,0,0,0,1-1,1,1,0,0,1,1-1Z\"/></g><path id=\"Rectangle_15388\" data-name=\"Rectangle 15388\" class=\"cls-2\" d=\"M21,8v19.1a.94.94,0,0,1-.91.95H11.91a.94.94,0,0,1-.91-.95V8a.94.94,0,0,1,.91-1h8.18A.94.94,0,0,1,21,8Z\"/></g></svg>"
+  },
+  {
+    "key": "\\Cloudinfra\\SVG\\Device PC.svg",
+    "name": "Device PC",
+    "svg": "<svg id=\"Layer_1\" data-name=\"Layer 1\" xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"32\" viewBox=\"0 0 32 32\"><defs><style>.cls-1,.cls-2{fill:#2e3f58;}.cls-1{fill-rule:evenodd;}</style></defs><title>icons</title><g id=\"Group_4702\" data-name=\"Group 4702\"><path id=\"Path_2013\" data-name=\"Path 2013\" class=\"cls-1\" d=\"M29,6H3A2,2,0,0,0,1,8V23a2,2,0,0,0,2,2H29a2,2,0,0,0,2-2V8A2,2,0,0,0,29,6Zm0,16a1,1,0,0,1-1,1H4a1,1,0,0,1-1-1V9A1,1,0,0,1,4,8H28a1,1,0,0,1,1,1Z\"/><rect id=\"Rectangle_15382\" data-name=\"Rectangle 15382\" class=\"cls-2\" x=\"14\" y=\"25\" width=\"4\" height=\"2\"/><rect id=\"Rectangle_15383\" data-name=\"Rectangle 15383\" class=\"cls-2\" x=\"12\" y=\"27\" width=\"8\" height=\"1\"/></g><rect id=\"Rectangle_15389\" data-name=\"Rectangle 15389\" class=\"cls-2\" x=\"5\" y=\"10\" width=\"22\" height=\"11\" rx=\"1\"/></svg>"
+  }
+]

@@ -1,13 +1,21 @@
-import React, { useState } from "react";
+import React, {useState, useEffect} from "react";
 
 const AppContext = React.createContext([{}, () => {}]);
 
 const DEFAULT_STATE = {
-  message: "Hello from context !"
+  appIsLoading: true,
+  icons: [],
+  categories: [],
+  selectedCategory: ""
 };
 
 const AppContextProvider = props => {
   const [state, setState] = useState(DEFAULT_STATE);
+
+  useEffect(() => {
+    //console.log("AppContextStateUpdated ->", state);
+  });
+
   return (
     <AppContext.Provider value={[state, setState]}>
       {props.children}
@@ -17,4 +25,4 @@ const AppContextProvider = props => {
 
 const AppContextConsumer = AppContext.Consumer;
 
-export { AppContext, AppContextProvider, AppContextConsumer };
+export {AppContext, AppContextProvider, AppContextConsumer};

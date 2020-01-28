@@ -1,50 +1,45 @@
-import React, {useContext} from "react";
+import React, {useState, useContext, useEffect} from "react";
 import {AppContext} from "../../hooks/useAppContext";
-import IconGallery from "../IconsGallery";
-
-//import data from "../../assets/icons.json";
+import IconsGallery from "../IconsGallery";
 
 const App = () => {
-  const [state] = useContext(AppContext);
+  const [state, setState] = useContext(AppContext);
+
+  useEffect(() => {
+    // LOAD ICONS DATA
+    const fetchData = async () => {
+      const response = await fetch("./icons.json");
+      const json = await response.json();
+      return json;
+    };
+
+    fetchData()
+      .then(data => {
+        console.log("icons loaded!");
+        const rootFolders = [
+          ...new Set(
+            data.map(item =>
+              item.key.substring(1, item.key.substring(1).indexOf("\\") + 1)
+            )
+          )
+        ];
+        setState({
+          ...state,
+          icons: data,
+          categories: rootFolders,
+          selectedCategory: "All"
+        });
+      })
+      .catch(() => {
+        console.log("App says: Error fetching icons data...");
+      });
+  }, []);
+
   return (
     <main className="App">
-      <IconGallery />
+      <IconsGallery />
     </main>
   );
 };
-
-// const style = {
-//   display: "flex",
-//   flexFlow: "row wrap"
-// };
-
-// const divStyle = {
-//   margin: "10px",
-//   backgroundColor: "#dfdfdf"
-// };
-
-// function App() {
-//   return (
-//     <main className="App">
-//       <h1>SVG Test </h1>
-//       <h4>Found {data.length} icons</h4>
-//       <div style={style}>
-//         {data.map((item, index) => (
-//           <div
-//             key={index}
-//             dangerouslySetInnerHTML={{ __html: item.svg }}
-//             style={divStyle}
-//           />
-//         ))}
-//         {
-//           <div
-//             dangerouslySetInnerHTML={{ __html: data[111].svg }}
-//             style={divStyle}
-//           />
-//         }
-//       </div>
-//     </main>
-//   );
-// }
 
 export default App;

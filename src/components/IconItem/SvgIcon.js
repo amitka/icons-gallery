@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import React, {useContext, useEffect, useState, Fragment} from "react";
 import {AppContext} from "../../hooks/useAppContext";
 
 export const SvgIcon = props => {
@@ -16,4 +16,24 @@ export const SvgIcon = props => {
       <span>{state.message}</span>
     </div>
   );
+};
+
+export const SvgIconTest = ({path, name}) => {
+  const [icon, setIcon] = useState();
+  useEffect(() => {
+    import(path).then(({img}) => {
+      setIcon({img});
+    });
+  }, []);
+
+  return (
+    <div>
+      {icon && <img src={icon} alt="" />}
+      <span>{name}</span>
+    </div>
+  );
+};
+
+export const SvgIcon2 = ({svg}) => {
+  return <div dangerouslySetInnerHTML={{__html: svg}}></div>;
 };

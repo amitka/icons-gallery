@@ -25,11 +25,12 @@ export const Gallery = () => {
   }, [selectedIcons]);
 
   useEffect(() => {
+    console.log(renderIcons.length);
     let timer = null;
     if (renderIcons.length <= selectedIcons.length) {
       timer = setTimeout(function() {
         const index = renderIcons.length + 1;
-        setRenderIcons(renderIcons => [...renderIcons, selectedIcons[index]]);
+        setRenderIcons([...renderIcons, selectedIcons[index]]);
       }, 1);
     } else {
       clearTimeout(timer);
@@ -40,39 +41,26 @@ export const Gallery = () => {
 
   return (
     <section className="prd-gallery">
+      {console.log("render")}
       <div className="gallery-scroll">
-        <h4>{renderIcons.length}</h4>
         <div className="icons-grid">
-          {renderIcons.length &&
-            renderIcons.map((item = {}, index) => {
-              return (
-                <MemoGalleryItem key={index} name={item.name} svg={item.svg} />
-              );
-            })}
+          {renderIcons.map((item, index) => {
+            return <GalleryItem key={index} details={item} />;
+          })}
         </div>
       </div>
     </section>
   );
 };
 
-const GalleryItem = ({name, svg}) => {
-  const [imageURI, setImageURI] = useState("");
-
-  useEffect(() => {
-    setImageURI(`data:image/svg+xml,${encodeURIComponent(svg)}`);
-    console.log(name);
-  }, []);
-
+const GalleryItem = ({details = {}}) => {
   return (
     <div className="gallery-item">
-      <img src={imageURI} alt="icon" />
+      <img
+        src={`data:image/svg+xml,${encodeURIComponent(details.svg)}`}
+        alt="icon"
+      />
       {/* <span>{details.name}</span> */}
     </div>
   );
 };
-
-// const galleryItemAreEqual = (prevIcon, nextIcon) => {
-//   return prevIcon.name === nextIcon.name && prevIcon.svg === nextIcon.svg;
-// };
-
-const MemoGalleryItem = React.memo(GalleryItem);

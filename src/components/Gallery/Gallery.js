@@ -1,78 +1,98 @@
-import React, {useState, useContext, useEffect} from "react";
-import {AppContext} from "../../hooks/useAppContext";
+import React, { useState, useContext, useEffect, useMemo } from "react";
+import { AppContext } from "../../hooks/useAppContext";
+import { MemoGalleryItem } from "../GalleryItem";
+//import classNames from "classnames";
 
 export const Gallery = () => {
-  const [state, setState] = useContext(AppContext);
+  const [appState, setAppState] = useContext(AppContext);
   const [selectedIcons, setSelectedIcons] = useState([]);
   const [renderIcons, setRenderIcons] = useState([]);
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [searchFilter, setSearchFilter] = useState("");
 
   useEffect(() => {
-    if (state.selectedCategory !== "All") {
-      let regex = new RegExp("\\\\" + state.selectedCategory + "\\\\", "g");
-      const selected = state.icons.filter(item => item.key.match(regex));
-      //
-      setSelectedIcons(selected);
-      setRenderIcons([]);
+    setSelectedIcons([]);
+    setRenderIcons([]);
+    setSelectedIndex(0);
+  }, [appState.icons, appState.selectedCategory]);
+
+  // PLACE SELECTED CATEGORY INTO SELECTED ICONS
+  // WHEN DONE COPY TO RENDER ICONS TO RENDER THEM
+  useEffect(() => {
+    if (selectedIcons.length === 0) {
+      if (appState.selectedCategory !== "All") {
+        let regex = new RegExp(
+          "\\\\" + appState.selectedCategory + "\\\\",
+          "g"
+        );
+        const selected = appState.icons.filter(item => item.key.match(regex));
+        setSelectedIcons(selected);
+      } else {
+        setSelectedIcons(appState.icons.slice(0, 300));
+      }
     } else {
-      setSelectedIcons(state.icons);
-    }
-  }, [state.selectedCategory]);
-
-  useEffect(() => {
-    if (selectedIcons.length > 0) {
-      setRenderIcons([...renderIcons, selectedIcons[0]]);
+      setRenderIcons(selectedIcons);
     }
   }, [selectedIcons]);
 
+  // WHEN EVER RENDER ICONS ARE CHANGED
+  // GALLERY SELECTED INDEX === 0
+  // UPDATE APP STATE WITH SELECTED ICON
   useEffect(() => {
-    let timer = null;
-    if (renderIcons.length <= selectedIcons.length) {
-      timer = setTimeout(function() {
-        const index = renderIcons.length + 1;
-        setRenderIcons(renderIcons => [...renderIcons, selectedIcons[index]]);
-      }, 1);
-    } else {
-      clearTimeout(timer);
-    }
-    // WHEN UNMOUNT
-    return () => clearTimeout(timer);
+    setSelectedIndex(0);
+    setAppState(appState => ({
+      ...appState,
+      selectedIcon: renderIcons[0]
+    }));
   }, [renderIcons]);
+
+  // WHENEVER GALLERY SELECTED INDEX IS CHANGED
+  // UPDATE APP STATE WITH SELECTED ICON
+  useEffect(() => {
+    setAppState(appState => ({
+      ...appState,
+      selectedIcon: renderIcons[selectedIndex]
+    }));
+  }, [selectedIndex]);
+
+  // FILTER RENDER ICONS WITH SEARCH PARAMS
+  useEffect(() => {
+    if (searchFilter !== "") {
+      const filtered = selectedIcons.filter(icon =>
+        icon.name.includes(searchFilter)
+      );
+      setRenderIcons(filtered);
+    } else {
+      setRenderIcons(selectedIcons);
+    }
+  }, [searchFilter]);
 
   return (
     <section className="prd-gallery">
+      {console.log("gallery render...")}
       <div className="gallery-scroll">
-        <h4>{renderIcons.length}</h4>
+        <div className="search-container">
+          <input
+            type="text"
+            placeholder="search..."
+            value={searchFilter}
+            onChange={event => setSearchFilter(event.target.value)}
+          />
+          <span>{renderIcons.length}</span>
+        </div>
+
         <div className="icons-grid">
-          {renderIcons.length &&
-            renderIcons.map((item = {}, index) => {
-              return (
-                <MemoGalleryItem key={index} name={item.name} svg={item.svg} />
-              );
-            })}
+          {renderIcons.map((item = {}, index) => (
+            <MemoGalleryItem
+              key={index}
+              name={item.name}
+              svg={item.svg}
+              selected={index === selectedIndex}
+              onClick={() => setSelectedIndex(index)}
+            />
+          ))}
         </div>
       </div>
     </section>
   );
 };
-
-const GalleryItem = ({name, svg}) => {
-  const [imageURI, setImageURI] = useState("");
-
-  useEffect(() => {
-    setImageURI(`data:image/svg+xml,${encodeURIComponent(svg)}`);
-    console.log(name);
-  }, []);
-
-  return (
-    <div className="gallery-item">
-      <img src={imageURI} alt="icon" />
-      {/* <span>{details.name}</span> */}
-    </div>
-  );
-};
-
-// const galleryItemAreEqual = (prevIcon, nextIcon) => {
-//   return prevIcon.name === nextIcon.name && prevIcon.svg === nextIcon.svg;
-// };
-
-const MemoGalleryItem = React.memo(GalleryItem);

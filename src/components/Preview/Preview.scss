@@ -4,4 +4,13 @@
   min-width: 20vw;
   background-color: lightpink;
   overflow: hidden;
+
+  .icon-preview {
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+
+    &.show-preview {
+      opacity: 1;
+    }
+  }
 }

@@ -1,5 +1,5 @@
-import React, {useContext} from "react";
-import {AppContext} from "../../hooks/useAppContext";
+import React, { useContext } from "react";
+import { AppContext } from "../../hooks/useAppContext";
 import DirTree from "../../components/DirTree";
 import Gallery from "../../components/Gallery";
 import Preview from "../../components/Preview";

@@ -1,9 +1,9 @@
-import React, {useState, useContext, useEffect} from "react";
-import {AppContext} from "../../hooks/useAppContext";
+import React, { useState, useContext, useEffect } from "react";
+import { AppContext } from "../../hooks/useAppContext";
 import IconsGallery from "../IconsGallery";
 
 const App = () => {
-  const [state, setState] = useContext(AppContext);
+  const [appState, setAppState] = useContext(AppContext);
 
   useEffect(() => {
     // LOAD ICONS DATA
@@ -23,12 +23,11 @@ const App = () => {
             )
           )
         ];
-        setState({
-          ...state,
+        setAppState(appState => ({
+          ...appState,
           icons: data,
-          categories: rootFolders,
-          selectedCategory: "All"
-        });
+          categories: rootFolders
+        }));
       })
       .catch(() => {
         console.log("App says: Error fetching icons data...");

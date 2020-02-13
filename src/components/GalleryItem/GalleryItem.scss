@@ -1,0 +1,24 @@
+.gallery-item {
+  width: 50px;
+  height: 50px;
+  background-color: lightgrey;
+  margin: 10px;
+
+  &.is-selected {
+    border: 1px solid darkblue;
+  }
+
+  .icon-container {
+    width: 100%;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+
+    &.show-icon {
+      opacity: 1;
+    }
+
+    img {
+      width: 36px;
+    }
+  }
+}

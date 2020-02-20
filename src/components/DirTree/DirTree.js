@@ -1,24 +1,24 @@
 import React, { useContext } from "react";
 import { AppContext } from "../../hooks/useAppContext";
+import classNames from "classnames";
 
 export const DirTree = () => {
   const [appState, setAppState] = useContext(AppContext);
 
   return (
     <nav className="prd-dir-tree">
-      {console.log("dir tree render..")}
       <ul className="categories-list">
-        <li
-          className="category-item"
-          onClick={() => {
-            setAppState({ ...appState, selectedCategory: "All" });
-          }}
-        >
-          All
-        </li>
         {appState.categories.map((item, index) => {
           return (
-            <li key={index} className="category-item" onClick={() => {}}>
+            <li
+              key={index}
+              className={classNames("category-item", {
+                "is-selected": item === appState.selectedCategory
+              })}
+              onClick={() => {
+                setAppState({ ...appState, selectedCategory: item });
+              }}
+            >
               {item}
             </li>
           );

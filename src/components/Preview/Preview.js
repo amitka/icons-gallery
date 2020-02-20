@@ -1,9 +1,10 @@
 import React, { useContext } from "react";
 import { AppContext } from "../../hooks/useAppContext";
+import TagsControl from "../../components/TagsControl";
 import classNames from "classnames";
 
 export const Preview = () => {
-  const [{ selectedIcon }] = useContext(AppContext);
+  const [{ iconToPreview }] = useContext(AppContext);
 
   return (
     <aside className="prd-preview">
@@ -11,19 +12,20 @@ export const Preview = () => {
       <div
         className={classNames("icon-preview", {
           "show-preview":
-            selectedIcon !== undefined && selectedIcon.svg !== undefined
+            iconToPreview !== undefined && iconToPreview.svg !== undefined
         })}
       >
         <img
           src={
-            selectedIcon !== undefined
-              ? `data:image/svg+xml,${encodeURIComponent(selectedIcon.svg)}`
+            iconToPreview !== undefined
+              ? `data:image/svg+xml,${encodeURIComponent(iconToPreview.svg)}`
               : ""
           }
           alt="selected icon"
         />
-        <span>{selectedIcon !== undefined ? selectedIcon.name : ""}</span>
+        <span>{iconToPreview !== undefined ? iconToPreview.name : ""}</span>
       </div>
+      <TagsControl />
     </aside>
   );
 };

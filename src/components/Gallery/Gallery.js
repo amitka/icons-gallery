@@ -1,7 +1,9 @@
-import React, { useState, useContext, useEffect, useMemo } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { AppContext } from "../../hooks/useAppContext";
 import { MemoGalleryItem } from "../GalleryItem";
-//import classNames from "classnames";
+import classNames from "classnames";
+
+const MAX_ICONS_TO_DISPLAY = 200;
 
 export const Gallery = () => {
   const [appState, setAppState] = useContext(AppContext);
@@ -9,11 +11,13 @@ export const Gallery = () => {
   const [renderIcons, setRenderIcons] = useState([]);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [searchFilter, setSearchFilter] = useState("");
+  const [maxCount, setMaxCount] = useState(MAX_ICONS_TO_DISPLAY);
 
   useEffect(() => {
     setSelectedIcons([]);
     setRenderIcons([]);
     setSelectedIndex(0);
+    setMaxCount(MAX_ICONS_TO_DISPLAY);
   }, [appState.icons, appState.selectedCategory]);
 
   // PLACE SELECTED CATEGORY INTO SELECTED ICONS
@@ -28,7 +32,7 @@ export const Gallery = () => {
         const selected = appState.icons.filter(item => item.key.match(regex));
         setSelectedIcons(selected);
       } else {
-        setSelectedIcons(appState.icons.slice(0, 300));
+        setSelectedIcons(appState.icons);
       }
     } else {
       setRenderIcons(selectedIcons);
@@ -42,7 +46,7 @@ export const Gallery = () => {
     setSelectedIndex(0);
     setAppState(appState => ({
       ...appState,
-      selectedIcon: renderIcons[0]
+      iconToPreview: renderIcons[0]
     }));
   }, [renderIcons]);
 
@@ -51,7 +55,7 @@ export const Gallery = () => {
   useEffect(() => {
     setAppState(appState => ({
       ...appState,
-      selectedIcon: renderIcons[selectedIndex]
+      iconToPreview: renderIcons[selectedIndex]
     }));
   }, [selectedIndex]);
 
@@ -69,7 +73,6 @@ export const Gallery = () => {
 
   return (
     <section className="prd-gallery">
-      {console.log("gallery render...")}
       <div className="gallery-scroll">
         <div className="search-container">
           <input
@@ -80,9 +83,8 @@ export const Gallery = () => {
           />
           <span>{renderIcons.length}</span>
         </div>
-
         <div className="icons-grid">
-          {renderIcons.map((item = {}, index) => (
+          {renderIcons.slice(0, maxCount).map((item = {}, index) => (
             <MemoGalleryItem
               key={index}
               name={item.name}
@@ -91,6 +93,25 @@ export const Gallery = () => {
               onClick={() => setSelectedIndex(index)}
             />
           ))}
+        </div>
+        <div
+          className={classNames("show-more", {
+            "is-visible": renderIcons.length > MAX_ICONS_TO_DISPLAY
+          })}
+        >
+          <span>Showing 1 / {maxCount + 1}</span>
+          <button
+            onClick={() => {
+              if (maxCount + 100 < renderIcons.length) {
+                setMaxCount(maxCount => maxCount + MAX_ICONS_TO_DISPLAY);
+              } else {
+                const delta = renderIcons.length - maxCount;
+                setMaxCount(maxCount => maxCount + delta);
+              }
+            }}
+          >
+            Load more
+          </button>
         </div>
       </div>
     </section>

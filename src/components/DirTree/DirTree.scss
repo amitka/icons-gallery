@@ -4,4 +4,16 @@
   min-width: 10vw;
   background-color: yellow;
   overflow: hidden;
+
+  .categories-list {
+    width: 100%;
+
+    .category-item {
+      width: 100%;
+
+      &.is-selected {
+        background-color: lightblue;
+      }
+    }
+  }
 }

@@ -1,0 +1,46 @@
+.tags-control {
+  width: 100%;
+  background-color: white;
+  min-height: 5rem;
+
+  .tag-item {
+    display: inline-block;
+    margin: 0.1rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 0.25rem;
+    background-color: lightgreen;
+
+    &.is-editable {
+      .tag-item-input {
+        visibility: visible;
+        width: auto;
+      }
+
+      .tag-item-text {
+        visibility: hidden;
+        width: 0;
+        padding: 0;
+      }
+    }
+
+    &-input {
+      display: inline-block;
+      width: 0;
+      background: transparent;
+      border: none;
+      outline: none;
+      box-shadow: none;
+      visibility: hidden;
+    }
+
+    &-text {
+      display: inline-block;
+      //padding: 0.15rem 0.75rem;
+      text-align: center;
+    }
+
+    &-del-btn {
+      margin-left: 0.5rem;
+    }
+  }
+}

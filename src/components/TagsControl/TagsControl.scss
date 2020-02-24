@@ -11,6 +11,9 @@
     background-color: lightgreen;
 
     &.is-editable {
+      background-color: white;
+      border: 1px solid lightgreen;
+
       .tag-item-input {
         visibility: visible;
         width: auto;
@@ -41,6 +44,10 @@
 
     &-del-btn {
       margin-left: 0.5rem;
+      &:hover {
+        cursor: pointer;
+        background-color: red;
+      }
     }
   }
 }

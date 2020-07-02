@@ -18,7 +18,7 @@ const GalleryItem = ({ name, svg, selected, onClick }) => {
     >
       <div
         className={classNames("icon-container", {
-          "show-icon": imageURI !== undefined
+          "show-icon": imageURI !== undefined,
         })}
       >
         <img src={imageURI} alt="icon" />

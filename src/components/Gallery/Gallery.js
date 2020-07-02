@@ -8,15 +8,16 @@ const MAX_ICONS_TO_DISPLAY = 200;
 export const Gallery = () => {
   const [appState, setAppState] = useContext(AppContext);
   const [selectedIcons, setSelectedIcons] = useState([]);
-  const [renderIcons, setRenderIcons] = useState([]);
+  const [renderIcons, setRenderIcons] = useState([{}]);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [searchFilter, setSearchFilter] = useState("");
   const [maxCount, setMaxCount] = useState(MAX_ICONS_TO_DISPLAY);
 
   useEffect(() => {
     setSelectedIcons([]);
-    setRenderIcons([]);
+    setRenderIcons([{}]);
     setSelectedIndex(0);
+    setSearchFilter("");
     setMaxCount(MAX_ICONS_TO_DISPLAY);
   }, [appState.icons, appState.selectedCategory]);
 
@@ -29,7 +30,7 @@ export const Gallery = () => {
           "\\\\" + appState.selectedCategory + "\\\\",
           "g"
         );
-        const selected = appState.icons.filter(item => item.key.match(regex));
+        const selected = appState.icons.filter((item) => item.key.match(regex));
         setSelectedIcons(selected);
       } else {
         setSelectedIcons(appState.icons);
@@ -44,25 +45,25 @@ export const Gallery = () => {
   // UPDATE APP STATE WITH SELECTED ICON
   useEffect(() => {
     setSelectedIndex(0);
-    setAppState(appState => ({
+    setAppState((appState) => ({
       ...appState,
-      iconToPreview: renderIcons[0]
+      iconToPreview: renderIcons[0] || {},
     }));
   }, [renderIcons]);
 
   // WHENEVER GALLERY SELECTED INDEX IS CHANGED
   // UPDATE APP STATE WITH SELECTED ICON
   useEffect(() => {
-    setAppState(appState => ({
+    setAppState((appState) => ({
       ...appState,
-      iconToPreview: renderIcons[selectedIndex]
+      iconToPreview: renderIcons[selectedIndex],
     }));
   }, [selectedIndex]);
 
   // FILTER RENDER ICONS WITH SEARCH PARAMS
   useEffect(() => {
     if (searchFilter !== "") {
-      const filtered = selectedIcons.filter(icon =>
+      const filtered = selectedIcons.filter((icon) =>
         icon.name.includes(searchFilter)
       );
       setRenderIcons(filtered);
@@ -79,7 +80,7 @@ export const Gallery = () => {
             type="text"
             placeholder="search..."
             value={searchFilter}
-            onChange={event => setSearchFilter(event.target.value)}
+            onChange={(event) => setSearchFilter(event.target.value)}
           />
           <span>{renderIcons.length}</span>
         </div>
@@ -96,17 +97,17 @@ export const Gallery = () => {
         </div>
         <div
           className={classNames("show-more", {
-            "is-visible": renderIcons.length > MAX_ICONS_TO_DISPLAY
+            "is-visible": renderIcons.length > MAX_ICONS_TO_DISPLAY,
           })}
         >
           <span>Showing 1 / {maxCount + 1}</span>
           <button
             onClick={() => {
               if (maxCount + 100 < renderIcons.length) {
-                setMaxCount(maxCount => maxCount + MAX_ICONS_TO_DISPLAY);
+                setMaxCount((maxCount) => maxCount + MAX_ICONS_TO_DISPLAY);
               } else {
                 const delta = renderIcons.length - maxCount;
-                setMaxCount(maxCount => maxCount + delta);
+                setMaxCount((maxCount) => maxCount + delta);
               }
             }}
           >

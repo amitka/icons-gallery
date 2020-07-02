@@ -1,42 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 const AppContext = React.createContext([{}, () => {}]);
 
 const DEFAULT_STATE = {
   appIsLoading: true,
-  icons: [],
+  icons: [], // ALL ICONS
   categories: ["All"],
   selectedCategory: "All",
   iconToPreview: {},
-  tags: []
+  tags: [], // ALL ICONS TAGS
 };
 
-const AppContextProvider = props => {
-  const [state, setState] = useState(DEFAULT_STATE);
+const AppContextProvider = (props) => {
+  const [state, setState] = React.useState(DEFAULT_STATE);
 
-  // EACH TIME ICONS DATA CHANGE
-  // REMAP CATEGORIES
-  useEffect(() => {
-    if (state.icons.length > 0) {
-      const rootFolders = [
-        ...new Set(
-          state.icons.map(item =>
-            item.key.substring(1, item.key.substring(1).indexOf("\\") + 1)
-          )
-        )
-      ];
-
-      setState(state => ({
-        ...state,
-        categories: [...state.categories, ...rootFolders]
-      }));
-      console.log("Categories were set...");
-    }
-  }, [state.icons]);
-
-  // useEffect(() => {
-  //   console.log(state);
-  // });
+  React.useEffect(() => {
+    console.log(state.iconToPreview);
+  }, [state]);
 
   return (
     <AppContext.Provider value={[state, setState]}>

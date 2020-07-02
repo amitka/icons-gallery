@@ -1,9 +1,29 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { AppContext } from "../../hooks/useAppContext";
 import classNames from "classnames";
 
 export const DirTree = () => {
   const [appState, setAppState] = useContext(AppContext);
+
+  // EACH TIME ICONS DATA CHANGE
+  // REMAP CATEGORIES
+  useEffect(() => {
+    if (appState.icons.length > 0) {
+      const rootFolders = [
+        ...new Set(
+          appState.icons.map((item) =>
+            item.key.substring(1, item.key.substring(1).indexOf("\\") + 1)
+          )
+        ),
+      ];
+
+      setAppState((appState) => ({
+        ...appState,
+        categories: [...appState.categories, ...rootFolders],
+      }));
+      console.log("Categories were set...");
+    }
+  }, [appState.icons]);
 
   return (
     <nav className="prd-dir-tree">
@@ -13,7 +33,7 @@ export const DirTree = () => {
             <li
               key={index}
               className={classNames("category-item", {
-                "is-selected": item === appState.selectedCategory
+                "is-selected": item === appState.selectedCategory,
               })}
               onClick={() => {
                 setAppState({ ...appState, selectedCategory: item });

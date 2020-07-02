@@ -8,6 +8,7 @@ export const IconsGallery = () => {
   const [appState, setAppState] = useContext(AppContext);
 
   useEffect(() => {
+    console.log(appState);
     // FETCHING ICONS
     const fetchIconsData = async () => {
       const response = await fetch("./icons.json");
@@ -16,25 +17,12 @@ export const IconsGallery = () => {
     };
 
     fetchIconsData()
-      .then(data => {
+      .then((data) => {
         console.log("Icons data was loaded...");
-        setAppState(appState => ({ ...appState, icons: data }));
+        //setAppState((appState) => ({ ...appState, icons: data }));
+        setAppState({ ...appState, icons: data });
       })
-      .catch(err => console.log("Error fetching icons data...", err));
-
-    // FETCHING TAGS
-    const fetchTagsData = async () => {
-      const respone = await fetch("./tags.json");
-      const json = respone.json();
-      return json;
-    };
-
-    fetchTagsData()
-      .then(data => {
-        console.log("Tags were loaded ...");
-        setAppState(appState => ({ ...appState, tags: data }));
-      })
-      .catch(err => console.log("Error fetching tags data ...", err));
+      .catch((err) => console.log("Error fetching icons data...", err));
   }, []);
 
   return (
@@ -45,3 +33,17 @@ export const IconsGallery = () => {
     </article>
   );
 };
+
+// FETCHING TAGS
+// const fetchTagsData = async () => {
+//   const respone = await fetch("./tags.json");
+//   const json = respone.json();
+//   return json;
+// };
+
+// fetchTagsData()
+//   .then(data => {
+//     console.log("Tags were loaded ...");
+//     setAppState(appState => ({ ...appState, tags: data }));
+//   })
+//   .catch(err => console.log("Error fetching tags data ...", err));

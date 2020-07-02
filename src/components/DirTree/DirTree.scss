@@ -1,18 +1,35 @@
+@import "../../style/shared";
+
 .prd-dir-tree {
-  flex: 1 1 15%;
-  //max-width: 20rem;
-  min-width: 10vw;
-  background-color: yellow;
+  flex: 1 1 20%;
+  max-width: 10vw;
+  min-width: 240px;
+  //padding: $layout-spacing;
+  //border-right: 1px solid $color-border;
   overflow: hidden;
 
   .categories-list {
     width: 100%;
+    margin-top: $layout-spacing;
 
     .category-item {
       width: 100%;
+      padding: $layout-spacing / 2 $layout-spacing * 2;
+      text-transform: capitalize;
+      transition: all 0.1s ease-in-out;
+
+      &:first-child {
+        text-transform: uppercase;
+        font-weight: bold;
+      }
+
+      &:hover {
+        background-color: $color-hover;
+        cursor: pointer;
+      }
 
       &.is-selected {
-        background-color: lightblue;
+        background-color: $color-selected;
       }
     }
   }

@@ -8,7 +8,6 @@ export const IconsGallery = () => {
   const [appState, setAppState] = useContext(AppContext);
 
   useEffect(() => {
-    console.log(appState);
     // FETCHING ICONS
     const fetchIconsData = async () => {
       const response = await fetch("./icons.json");

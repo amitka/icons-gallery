@@ -28,20 +28,27 @@ export const Preview = () => {
                 iconToPreview !== undefined && iconToPreview.svg !== undefined,
             })}
           >
-            <img
-              src={`data:image/svg+xml,${encodeURIComponent(
-                iconToPreview.svg
-              )}`}
-              alt="selected icon"
-            />
-            <span>{iconToPreview.name}</span>
+            <div className="ratio-container">
+              <div className="inner-container">
+                <img
+                  src={`data:image/svg+xml,${encodeURIComponent(
+                    iconToPreview.svg
+                  )}`}
+                  alt="selected icon"
+                />
+              </div>
+            </div>
+            <span className="icon-name">{iconToPreview.name}</span>
           </div>
           <div className="preview-actions">
             <CopyToClipboard
               text={iconToPreview.svg}
               onCopy={() => setCopied(true)}
             >
-              <button onClick={() => setCopied(true)}>
+              <button
+                onClick={() => setCopied(true)}
+                className={classNames({ "is-copied": copied })}
+              >
                 {copied ? "Copied" : "Copy to Clipboard"}
               </button>
             </CopyToClipboard>
@@ -55,7 +62,7 @@ export const Preview = () => {
           </div>
         </>
       ) : (
-        <span>Preview is not available</span>
+        <span className="no-preview-msg">Preview is not available</span>
       )}
     </aside>
   );

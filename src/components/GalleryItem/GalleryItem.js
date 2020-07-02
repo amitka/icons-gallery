@@ -3,6 +3,7 @@ import classNames from "classnames";
 
 const GalleryItem = ({ name, svg, selected, onClick }) => {
   const [imageURI, setImageURI] = useState(undefined);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     if (svg) {
@@ -18,12 +19,12 @@ const GalleryItem = ({ name, svg, selected, onClick }) => {
     >
       <div
         className={classNames("icon-container", {
-          "show-icon": imageURI !== undefined,
+          "show-icon": isLoaded,
         })}
       >
-        <img src={imageURI} alt="icon" />
-        {/* <span>{name}</span> */}
+        <img src={imageURI} alt="icon" onLoad={() => setIsLoaded(true)} />
       </div>
+      <span className="icon-name">{name}</span>
     </div>
   );
 };

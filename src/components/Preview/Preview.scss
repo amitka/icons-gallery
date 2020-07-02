@@ -1,16 +1,92 @@
+@import "../../style/shared";
+
 .prd-preview {
-  flex: 1 1 25%;
-  //max-width: 30rem;
-  min-width: 20vw;
-  background-color: lightpink;
+  background-color: white;
+  flex: 1 1 20%;
+  max-width: 20vw;
+  min-width: 240px;
+  border-left: 1px solid $color-border;
   overflow: hidden;
+  display: flex;
+  flex-flow: column nowrap;
+
+  .no-preview-msg {
+    margin: auto;
+  }
 
   .icon-preview {
+    flex: 1 1 50%;
     opacity: 0;
     transition: opacity 1s ease-in-out;
 
     &.show-preview {
       opacity: 1;
+    }
+
+    .ratio-container {
+      width: 100%;
+      padding-top: 100%;
+      border-bottom: 1px solid $color-border;
+      background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAG0lEQVQoU2M8cuTIfxsbG0YGHACnBEz98FAAABkUBAnsfZ91AAAAAElFTkSuQmCC)
+        repeat;
+      position: relative;
+
+      .inner-container {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        display: flex;
+
+        img {
+          width: 60%;
+          height: 60%;
+          margin: auto;
+        }
+      }
+    }
+
+    .icon-name {
+      width: 100%;
+      display: block;
+      padding: $layout-spacing $layout-spacing;
+      text-align: center;
+      text-transform: capitalize;
+    }
+  }
+
+  .preview-actions {
+    flex: 1 1 50%;
+    padding: $layout-spacing $layout-spacing;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-end;
+    align-items: center;
+
+    & > * {
+      margin-bottom: $layout-spacing / 2;
+    }
+
+    button {
+      border: none;
+      outline: none;
+      width: 100%;
+      max-width: 250px;
+      padding: $layout-spacing / 2 $layout-spacing;
+      background-color: $color-hover;
+      border-radius: $layout-spacing;
+      transition: all 0.1s ease-in-out;
+
+      &:hover {
+        background-color: $color-secondary;
+        cursor: pointer;
+        color: $color-font;
+      }
+
+      &.is-copied {
+        background-color: $color-selected;
+      }
     }
   }
 }

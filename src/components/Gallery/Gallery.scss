@@ -1,6 +1,8 @@
+@import "../../style/shared";
+
 .prd-gallery {
-  flex: 1 1 65%;
-  background-color: lightgreen;
+  flex: 1 1 60%;
+  background-color: white;
   overflow: hidden;
 
   .gallery-scroll {

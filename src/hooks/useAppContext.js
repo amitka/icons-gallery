@@ -15,7 +15,7 @@ const AppContextProvider = (props) => {
   const [state, setState] = React.useState(DEFAULT_STATE);
 
   React.useEffect(() => {
-    console.log(state.iconToPreview);
+    //console.log(state.iconToPreview);
   }, [state]);
 
   return (

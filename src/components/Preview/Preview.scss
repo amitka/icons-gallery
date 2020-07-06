@@ -53,6 +53,7 @@
       padding: $layout-spacing $layout-spacing;
       text-align: center;
       text-transform: capitalize;
+      font-size: 1.5rem;
     }
   }
 
@@ -68,24 +69,16 @@
       margin-bottom: $layout-spacing / 2;
     }
 
-    button {
-      border: none;
-      outline: none;
-      width: 100%;
-      max-width: 250px;
-      padding: $layout-spacing / 2 $layout-spacing;
-      background-color: $color-hover;
-      border-radius: $layout-spacing;
-      transition: all 0.1s ease-in-out;
+    .icon-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
-      &:hover {
-        background-color: $color-secondary;
-        cursor: pointer;
-        color: $color-font;
-      }
-
-      &.is-copied {
-        background-color: $color-selected;
+      svg {
+        width: 1em;
+        height: 1em;
+        fill: currentColor;
+        margin-right: 0.5em;
       }
     }
   }

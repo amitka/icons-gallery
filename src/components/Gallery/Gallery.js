@@ -2,8 +2,11 @@ import React, { useState, useContext, useEffect } from "react";
 import { AppContext } from "../../hooks/useAppContext";
 import { MemoGalleryItem } from "../GalleryItem";
 import classNames from "classnames";
+import * as Icons from "../../style/icons";
+import { SizeBtnControl } from "./SizeBtnControl";
 
 const MAX_ICONS_TO_DISPLAY = 200;
+const ITEM_SIZE = { small: "5%", medium: "10%", large: "20%" };
 
 export const Gallery = () => {
   const [appState, setAppState] = useContext(AppContext);
@@ -12,6 +15,7 @@ export const Gallery = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [searchFilter, setSearchFilter] = useState("");
   const [maxCount, setMaxCount] = useState(MAX_ICONS_TO_DISPLAY);
+  const [itemSize, setItemSize] = useState(ITEM_SIZE.medium);
 
   useEffect(() => {
     setSelectedIcons([]);
@@ -25,7 +29,7 @@ export const Gallery = () => {
   // WHEN DONE COPY TO RENDER ICONS TO RENDER THEM
   useEffect(() => {
     if (selectedIcons.length === 0) {
-      if (appState.selectedCategory !== "All") {
+      if (appState.selectedCategory !== "All Icons") {
         let regex = new RegExp(
           "\\\\" + appState.selectedCategory + "\\\\",
           "g"
@@ -64,7 +68,7 @@ export const Gallery = () => {
   useEffect(() => {
     if (searchFilter !== "") {
       const filtered = selectedIcons.filter((icon) =>
-        icon.name.includes(searchFilter)
+        icon.name.toLowerCase().includes(searchFilter.toLowerCase())
       );
       setRenderIcons(filtered);
     } else {
@@ -72,23 +76,49 @@ export const Gallery = () => {
     }
   }, [searchFilter]);
 
+  const handleSizeBtnChange = (e) => {
+    switch (e.target.id) {
+      case "btn-small":
+        setItemSize(ITEM_SIZE.small);
+        break;
+
+      case "btn-medium":
+        setItemSize(ITEM_SIZE.medium);
+        break;
+
+      case "btn-large":
+        setItemSize(ITEM_SIZE.large);
+        break;
+
+      default:
+        break;
+    }
+  };
+
   return (
     <section className="prd-gallery">
-      <div className="gallery-scroll">
-        <div className="search-container">
+      <div className="search-container">
+        <div className="input-wrapper">
+          {searchFilter === "" ? (
+            <span className="search-icon">{Icons.Search}</span>
+          ) : null}
           <input
             type="text"
-            placeholder="search..."
+            placeholder="Search icons ..."
             value={searchFilter}
             onChange={(event) => setSearchFilter(event.target.value)}
           />
           <span>{renderIcons.length}</span>
         </div>
+        <SizeBtnControl size={itemSize} onClick={handleSizeBtnChange} />
+      </div>
+      <div className="gallery-scroll">
         <div className="icons-grid">
           {renderIcons.slice(0, maxCount).map((item = {}, index) => (
             <MemoGalleryItem
               key={index}
               name={item.name}
+              size={itemSize}
               svg={item.svg}
               selected={index === selectedIndex}
               onClick={() => setSelectedIndex(index)}
@@ -100,8 +130,9 @@ export const Gallery = () => {
             "is-visible": renderIcons.length > MAX_ICONS_TO_DISPLAY,
           })}
         >
-          <span>Showing 1 / {maxCount + 1}</span>
-          <button
+          <span>Showing 1 - {maxCount + 1}</span>
+          <span
+            className="more-btn"
             onClick={() => {
               if (maxCount + 100 < renderIcons.length) {
                 setMaxCount((maxCount) => maxCount + MAX_ICONS_TO_DISPLAY);
@@ -111,8 +142,8 @@ export const Gallery = () => {
               }
             }}
           >
-            Load more
-          </button>
+            Load More...
+          </span>
         </div>
       </div>
     </section>

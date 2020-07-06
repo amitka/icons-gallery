@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import { AppContext } from "../../hooks/useAppContext";
 import classNames from "classnames";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-
+import * as Icons from "../../style/icons";
 const fileDownload = require("js-file-download");
 
 export const Preview = () => {
@@ -49,7 +49,17 @@ export const Preview = () => {
                 onClick={() => setCopied(true)}
                 className={classNames({ "is-copied": copied })}
               >
-                {copied ? "Copied" : "Copy to Clipboard"}
+                {copied ? (
+                  <span className="icon-wrapper">
+                    {Icons.Check}
+                    <span>Copied</span>
+                  </span>
+                ) : (
+                  <span className="icon-wrapper">
+                    {Icons.Copy}
+                    <span>Copy</span>
+                  </span>
+                )}
               </button>
             </CopyToClipboard>
             <button
@@ -57,7 +67,10 @@ export const Preview = () => {
                 fileDownload(iconToPreview.svg, `${iconToPreview.name}.svg`)
               }
             >
-              Download
+              <span className="icon-wrapper">
+                {Icons.Download}
+                <span>Download</span>
+              </span>
             </button>
           </div>
         </>

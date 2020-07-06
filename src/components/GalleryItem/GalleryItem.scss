@@ -1,39 +1,59 @@
 @import "../../style/shared";
 
 .gallery-item {
-  width: 100px;
-  background-color: $color-background;
-  margin: $layout-spacing / 2;
+  flex: 1 1 auto;
+  width: 10%;
+  max-width: 10%;
+  margin-bottom: 0px;
+  background-color: $color-border;
+  border: 1px solid white;
+  transition: all 0.25s ease-in-out;
 
   &:hover {
     cursor: pointer;
     .icon-container {
-      box-shadow: 6px 6px rgba(0, 0, 0, 0.35);
+      background-color: $color-hover;
+      img {
+        transform: scale(1.1);
+      }
     }
   }
 
   &.is-selected {
     .icon-container {
-      border: 2px solid $color-selected;
+      border: 4px solid $color-selected;
+    }
+  }
+
+  &.show-icon {
+    background-color: transparent;
+    border: none;
+    .icon-container {
+      opacity: 1;
+    }
+    .icon-name {
+      opacity: 1;
     }
   }
 
   .icon-container {
-    width: 100%;
-    height: 100px;
+    background-color: $color-background;
+    border: 4px solid white;
+    padding-top: 100%;
     opacity: 0;
-    transition: opacity 0.5s ease-in-out;
-    display: flex;
-
-    &.show-icon {
-      opacity: 1;
-    }
+    position: relative;
+    transition: all 0.25s ease-in-out;
 
     img {
-      width: 80%;
-      height: 80%;
+      width: 60%;
+      height: 60%;
       margin: auto;
-      padding: $layout-spacing / 4;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      transition: transform 0.15s ease-in-out;
     }
   }
 
@@ -41,12 +61,12 @@
     width: 100%;
     font-size: 0.75rem;
     color: $color-secondary;
-    background-color: white;
     display: block;
     text-align: center;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
     padding-top: $layout-spacing / 4;
+    opacity: 0;
   }
 }

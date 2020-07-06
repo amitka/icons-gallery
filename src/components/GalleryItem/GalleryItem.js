@@ -1,9 +1,10 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import classNames from "classnames";
 
-const GalleryItem = ({ name, svg, selected, onClick }) => {
+export const GalleryItem = ({ name, size, svg, selected, onClick }) => {
   const [imageURI, setImageURI] = useState(undefined);
   const [isLoaded, setIsLoaded] = useState(false);
+  const itemRef = useRef(null);
 
   useEffect(() => {
     if (svg) {
@@ -12,16 +13,24 @@ const GalleryItem = ({ name, svg, selected, onClick }) => {
     }
   }, [svg]);
 
+  useEffect(() => {
+    if (itemRef) {
+      itemRef.current.style.width = size;
+      itemRef.current.style.maxWidth = size;
+    }
+  }, [size]);
+
   return (
     <div
-      className={classNames("gallery-item", { "is-selected": selected })}
+      className={classNames(
+        "gallery-item",
+        { "is-selected": isLoaded && selected },
+        { "show-icon": isLoaded }
+      )}
       onClick={onClick}
+      ref={itemRef}
     >
-      <div
-        className={classNames("icon-container", {
-          "show-icon": isLoaded,
-        })}
-      >
+      <div className="icon-container">
         <img src={imageURI} alt="icon" onLoad={() => setIsLoaded(true)} />
       </div>
       <span className="icon-name">{name}</span>
@@ -29,8 +38,8 @@ const GalleryItem = ({ name, svg, selected, onClick }) => {
   );
 };
 
-const areEqual = (prevIcon, nextIcon) => {
-  return prevIcon.name === nextIcon.name && prevIcon.svg === nextIcon.svg;
-};
+// const areEqual = (prevIcon, nextIcon) => {
+//   return prevIcon.name === nextIcon.name && prevIcon.svg === nextIcon.svg;
+// };
 
 export const MemoGalleryItem = React.memo(GalleryItem);

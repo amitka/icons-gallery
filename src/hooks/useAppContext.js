@@ -5,8 +5,8 @@ const AppContext = React.createContext([{}, () => {}]);
 const DEFAULT_STATE = {
   appIsLoading: true,
   icons: [], // ALL ICONS
-  categories: ["All"],
-  selectedCategory: "All",
+  categories: ["All Icons"],
+  selectedCategory: "All Icons",
   iconToPreview: {},
   tags: [], // ALL ICONS TAGS
 };

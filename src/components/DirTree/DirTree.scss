@@ -10,17 +10,30 @@
 
   .categories-list {
     width: 100%;
-    margin-top: $layout-spacing;
+    margin-top: $layout-spacing * 2;
 
     .category-item {
       width: 100%;
       padding: $layout-spacing / 2 $layout-spacing * 2;
       text-transform: capitalize;
       transition: all 0.1s ease-in-out;
+      //position: relative;
 
       &:first-child {
-        text-transform: uppercase;
+        //text-transform: uppercase;
         font-weight: bold;
+        //position: relative;
+        margin-bottom: $layout-spacing / 2;
+
+        &::after {
+          content: "";
+          position: absolute;
+          bottom: 0;
+          left: $layout-spacing;
+          right: $layout-spacing;
+          height: 1px;
+          background-color: $color-border;
+        }
       }
 
       &:hover {

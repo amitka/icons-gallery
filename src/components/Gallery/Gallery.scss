@@ -4,27 +4,88 @@
   flex: 1 1 60%;
   background-color: white;
   overflow: hidden;
+  display: flex;
+  flex-flow: column nowrap;
+
+  .search-container {
+    flex: 1 1 100px;
+    display: flex;
+    align-items: center;
+
+    .input-wrapper {
+      margin-left: $layout-spacing;
+      padding: $layout-spacing / 2 $layout-spacing;
+      border: 1px solid $color-border;
+      display: flex;
+      align-items: center;
+
+      &:focus {
+        border-color: $color-selected;
+      }
+
+      .search-icon {
+        width: 1.5em;
+        height: 1.5em;
+
+        svg {
+          fill: $color-font;
+        }
+      }
+
+      input[type="text"] {
+        width: 420px;
+        padding-left: $layout-spacing/2;
+        outline: none;
+        border: none;
+        margin-right: $layout-spacing;
+        font-size: 1.25rem;
+
+        &::placeholder {
+          color: $color-secondary;
+          font-style: italic;
+        }
+      }
+    }
+  }
 
   .gallery-scroll {
+    flex: 1 1 auto;
     width: 100%;
     height: 100%;
     overflow-y: auto;
     overflow-x: hidden;
+    padding: $layout-spacing;
+    padding-bottom: 0;
 
     .icons-grid {
       width: 100%;
       display: flex;
       flex-flow: row wrap;
       align-items: flex-start;
+      margin-bottom: $layout-spacing * 3;
     }
 
     .show-more {
       width: 100%;
-      padding: 2rem 0;
+      border-top: 1px solid $color-border;
+      padding: $layout-spacing * 3 0;
       opacity: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
       &.is-visible {
         opacity: 1;
+      }
+
+      .more-btn {
+        margin-left: $layout-spacing;
+        color: $color-selected;
+
+        &:hover {
+          cursor: pointer;
+          text-decoration: underline;
+        }
       }
     }
   }

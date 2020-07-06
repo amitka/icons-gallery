@@ -1,0 +1,62 @@
+@import "../../style/shared";
+
+.size-btn-wrapper {
+  display: flex;
+  //margin-left: auto;
+  //margin-right: $layout-spacing;
+  margin-left: $layout-spacing * 2;
+
+  .size-btn {
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 1px solid $color-border;
+    position: relative;
+
+    &:hover {
+      cursor: pointer;
+      background-color: $color-hover;
+    }
+
+    &.selected {
+      background-color: $color-border;
+      &:after {
+        background-color: $color-selected;
+      }
+    }
+
+    &::after {
+      content: "";
+      border-radius: 100%;
+      background-color: currentColor;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      margin: auto;
+    }
+
+    &.small {
+      border-right: none;
+      &::after {
+        width: 0.6rem;
+        height: 0.6rem;
+      }
+    }
+
+    &.medium {
+      border-right: none;
+      &::after {
+        width: 1rem;
+        height: 1rem;
+      }
+    }
+
+    &.large {
+      &::after {
+        width: 1.4rem;
+        height: 1.4rem;
+      }
+    }
+  }
+}

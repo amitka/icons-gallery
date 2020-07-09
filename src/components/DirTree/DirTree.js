@@ -12,7 +12,7 @@ export const DirTree = () => {
       const rootFolders = [
         ...new Set(
           appState.icons.map((item) =>
-            item.key.substring(1, item.key.substring(1).indexOf("\\") + 1)
+            item.path.substring(0, item.path.substring(1).indexOf("/") + 1)
           )
         ),
       ];

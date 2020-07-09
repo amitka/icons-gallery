@@ -30,11 +30,10 @@ export const Gallery = () => {
   useEffect(() => {
     if (selectedIcons.length === 0) {
       if (appState.selectedCategory !== "All Icons") {
-        let regex = new RegExp(
-          "\\\\" + appState.selectedCategory + "\\\\",
-          "g"
+        let regex = new RegExp(appState.selectedCategory + "/", "g");
+        const selected = appState.icons.filter((item) =>
+          item.path.match(regex)
         );
-        const selected = appState.icons.filter((item) => item.key.match(regex));
         setSelectedIcons(selected);
       } else {
         setSelectedIcons(appState.icons);

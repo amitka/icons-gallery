@@ -8,13 +8,9 @@ export const Search = (
 
 export const Copy = (
   <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
-    <path
-      class="st0"
-      d="M3 10H2V2h8v1h2V1c0-.6-.4-1-1-1H1C.4 0 0 .4 0 1v10c0 .6.4 1 1 1h2v-2z"
-    />
+    <path d="M3 10H2V2h8v1h2V1c0-.6-.4-1-1-1H1C.4 0 0 .4 0 1v10c0 .6.4 1 1 1h2v-2z" />
     <path
       id="Rectangle_14888_1_"
-      class="st0"
       d="M5 4h10c.6 0 1 .4 1 1v10c0 .6-.4 1-1 1H5c-.6 0-1-.4-1-1V5c0-.6.4-1 1-1z"
     />
   </svg>
@@ -24,7 +20,7 @@ export const Download = (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
     <path
       d="M1.011 15.01L1.016 12l2 .008v1h10.007v-1.022l1.973.022v3H1.011zm7.054-3.09L4.026 6.979h2.99V1h2v5.979h3.011z"
-      fill-rule="evenodd"
+      fillRule="evenodd"
     />
   </svg>
 );

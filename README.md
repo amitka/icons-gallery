@@ -1,3 +1,5 @@
-# icons-gallery
+# Icons Gallery
+---
+Static SVG icons (files) gallery that allows you to quickly navigate, preview, copy or download your icons.
 
-Icons gallery web site for internal use only
+[ref.png]
